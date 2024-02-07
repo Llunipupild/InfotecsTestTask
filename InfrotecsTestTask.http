@@ -1,0 +1,6 @@
+@InfrotecsTestTask_HostAddress = http://localhost:5262
+
+GET {{InfrotecsTestTask_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
