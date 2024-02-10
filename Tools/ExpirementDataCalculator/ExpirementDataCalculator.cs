@@ -4,10 +4,18 @@ using TestTask.Tools.Parser;
 
 namespace TestTask.Tools.ExpirementDataCalculator
 {
+    /// <summary>
+    /// Класс, который вычисляет данные эксперимента
+    /// </summary>
     public class ExpirementDataCalculator
     {
         public const string SEPARATOR = ";";
 
+        /// <summary>
+        /// Метод, который высчитывает данные эксперемента 
+        /// </summary>
+        /// <param name="valueModels">Данные прошедшие валидацию</param>
+        /// <returns>Модель данных эксперемента</returns>
         public static ResultModel CalculateAndGetResultModel(List<ValueModel> valueModels)
         {
             DateTime minDate = DateTime.MaxValue, maxDate = DateTime.MinValue;

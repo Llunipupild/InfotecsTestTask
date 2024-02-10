@@ -2,6 +2,9 @@
 
 namespace TestTask.Repository.Base
 {
+    /// <summary>
+    /// Базовый интерфейс для классов-репозиториев
+    /// </summary>
     public interface IBaseRepository
     {
         bool Add<T>(T obj) where T : IModel;

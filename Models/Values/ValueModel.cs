@@ -1,5 +1,8 @@
 ﻿namespace TestTask.Models.Values
 {
+    /// <summary>
+    /// Класс-модель, содержащий данные о записи из таблицы Values
+    /// </summary>
     public class ValueModel : IValueModel
     {
         public int Id { get; set; }

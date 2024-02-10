@@ -3,6 +3,9 @@ using TestTask.Repository.Base;
 
 namespace TestTask.Repository.Results
 {
+    /// <summary>
+    /// Интерфейс для класс-репозитория ResultsRepository
+    /// </summary>
     public interface IResultsRepository : IBaseRepository
     {
         bool AddOrUpdate(IResultModel fileModel);

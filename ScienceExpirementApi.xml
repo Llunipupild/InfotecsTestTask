@@ -1,0 +1,467 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>InfrotecsTestTask</name>
+    </assembly>
+    <members>
+        <member name="T:TestTask.Controllers.ScienceExperiment.ScienceExperimentController">
+            <summary>
+            Класс-контроллер для работы с данными научного эксперимента
+            </summary>
+        </member>
+        <member name="M:TestTask.Controllers.ScienceExperiment.ScienceExperimentController.Post(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            Метод http post к точке /science/files/
+            </summary>
+            <param name="file">Файл с данными об эксперименте</param>
+            <returns>Записанные данные в базу данных эксперимента</returns>
+            <response code="201">Запись в базе данных сделана</response>
+            <response code="400">Файл не подходит</response>
+        </member>
+        <member name="M:TestTask.Controllers.ScienceExperiment.ScienceExperimentController.GetResultModels(System.String,TestTask.Tools.Range.AverageExpirementValueRange,TestTask.Tools.Range.AverageExpirementTimeRange)">
+            <summary>
+            Метод http get к конечной точке /science/results/
+            </summary>
+            <param name="fileName">Фильтр по имени файла</param>
+            <param name="averageExpirementValueRange">Фильтр по промежутку среднего значения эксперимента</param>
+            <param name="averageExpirementTimeRange">Фильтр по промежутку среднего времени эксперимента</param>
+            <returns>Вычисленные данные о научных экспериментах</returns>
+            <response code="200">Данные найдены</response>
+            <response code="400">Неизвестные параметры</response>
+        </member>
+        <member name="M:TestTask.Controllers.ScienceExperiment.ScienceExperimentController.GetValueModels(System.String)">
+            <summary>
+            Метод http get к точке /science/values/{fileName}
+            </summary>
+            <param name="fileName">Имя файла</param>
+            <returns>Записи из таблицы Values </returns>
+        </member>
+        <member name="T:TestTask.Database.Context.DatabaseContext">
+            <summary>
+            Класс-контекст базы данных
+            </summary>
+        </member>
+        <member name="T:TestTask.Models.Base.IModel">
+            <summary>
+            Базовый интерфейс для записей в базе данных
+            </summary>
+        </member>
+        <member name="T:TestTask.Models.Files.FileModel">
+            <summary>
+            Класс-модель, содержащий данные о записи из таблицы Files
+            </summary>
+        </member>
+        <member name="T:TestTask.Models.Files.IFileModel">
+            <summary>
+            Интерфейс для моделей из таблицы Files
+            </summary>
+        </member>
+        <member name="T:TestTask.Models.Results.IResultModel">
+            <summary>
+            Интерфейс для моделей из таблицы Results
+            </summary>
+        </member>
+        <member name="T:TestTask.Models.Results.ResultModel">
+            <summary>
+            Класс-модель, содержащий данные о записи из таблицы Results
+            </summary>
+        </member>
+        <member name="T:TestTask.Models.Values.IValueModel">
+            <summary>
+            Интерфейс для моделей из таблицы Values
+            </summary>
+        </member>
+        <member name="T:TestTask.Models.Values.ValueModel">
+            <summary>
+            Класс-модель, содержащий данные о записи из таблицы Values
+            </summary>
+        </member>
+        <member name="T:TestTask.Repository.Base.IBaseRepository">
+            <summary>
+            Базовый интерфейс для классов-репозиториев
+            </summary>
+        </member>
+        <member name="T:TestTask.Repository.Files.FilesRepository">
+            <summary>
+            Класс, отвечающий за работу с таблицой из базы данных Files
+            </summary>
+        </member>
+        <member name="M:TestTask.Repository.Files.FilesRepository.Add``1(``0)">
+            <summary>
+            Метод, который добавляет запись в базу данных
+            </summary>
+            <typeparam name="T">Базовый интерфейс для записей в базе данных</typeparam>
+            <param name="obj">Модель IFileModel</param>
+            <returns>Истина, если запись была добавлена, в мном же случае ложь</returns>
+        </member>
+        <member name="M:TestTask.Repository.Files.FilesRepository.Update``1(``0)">
+            <summary>
+            Метод, который обновляет запись в базе данных
+            </summary>
+            <typeparam name="T">Базовый интерфейс для записей в базе данных</typeparam>
+            <param name="obj">Модель IFileModel</param>
+            <returns>Истина, если запись была обновлена, в мном же случае ложь</returns>
+        </member>
+        <member name="M:TestTask.Repository.Files.FilesRepository.AddOrUpdate(TestTask.Models.Files.IFileModel)">
+            <summary>
+            Метод, который при отсутвии модели в базе данных её добавляет, в ином же случаи иззменяет
+            </summary>
+            <param name="fileModel">Модель IFileModel</param>
+            <returns>Истина, если операция была успешна, в мном же случае ложь</returns>
+        </member>
+        <member name="M:TestTask.Repository.Files.FilesRepository.Delete``1(``0)">
+            <summary>
+            Метод, который удаляет запись в базе данных
+            </summary>
+            <typeparam name="T">Базовый интерфейс для записей в базе данных</typeparam>
+            <param name="obj">Модель IFileModel</param>
+            <returns>Истина, если запись была удалена, в мном же случае ложь</returns>
+        </member>
+        <member name="M:TestTask.Repository.Files.FilesRepository.GetFileModelByName(System.String)">
+            <summary>
+            Метод, который возвращает FileModel из бд по имени файла
+            </summary>
+            <param name="name">Имя файла</param>
+            <returns>Модель FileModel или null</returns>
+        </member>
+        <member name="M:TestTask.Repository.Files.FilesRepository.Save">
+            <summary>
+            Метод, который сохраняет изменения в базе данных
+            </summary>
+            <returns>Истина если измененмя сохранены в ином же случае ложь</returns>
+        </member>
+        <member name="T:TestTask.Repository.Files.IFilesRepository">
+            <summary>
+            Интерфейс для класс-репозитория FilesRepository
+            </summary>
+        </member>
+        <member name="T:TestTask.Repository.Results.IResultsRepository">
+            <summary>
+            Интерфейс для класс-репозитория ResultsRepository
+            </summary>
+        </member>
+        <member name="T:TestTask.Repository.Results.ResultsRepository">
+            <summary>
+            Класс, отвечающий за работу с таблицой из базы данных Results
+            </summary>
+        </member>
+        <member name="M:TestTask.Repository.Results.ResultsRepository.Add``1(``0)">
+            <summary>
+            Метод, который добавляет запись в базу данных
+            </summary>
+            <typeparam name="T">Базовый интерфейс для записей в базе данных</typeparam>
+            <param name="obj">Модель IResultModel</param>
+            <returns>Истина, если запись была добавлена, в мном же случае ложь</returns>
+        </member>
+        <member name="M:TestTask.Repository.Results.ResultsRepository.Update``1(``0)">
+            <summary>
+            Метод, который обновляет запись в базе данных
+            </summary>
+            <typeparam name="T">Базовый интерфейс для записей в базе данных</typeparam>
+            <param name="obj">Модель IResultModel</param>
+            <returns>Истина, если запись была обновлена, в мном же случае ложь</returns>
+        </member>
+        <member name="M:TestTask.Repository.Results.ResultsRepository.AddOrUpdate(TestTask.Models.Results.IResultModel)">
+            <summary>
+            Метод, который при отсутвии модели в базе данных её добавляет, в ином же случаи иззменяет
+            </summary>
+            <param name="resultModel">Модель IResultModel</param>
+            <returns>Истина, если операция была успешна, в мном же случае ложь</returns>
+        </member>
+        <member name="M:TestTask.Repository.Results.ResultsRepository.Delete``1(``0)">
+            <summary>
+            Метод, который удаляет запись в базе данных
+            </summary>
+            <typeparam name="T">Базовый интерфейс для записей в базе данных</typeparam>
+            <param name="obj">Модель IFileModel</param>
+            <returns>Истина, если запись была удалена, в мном же случае ложь</returns>
+        </member>
+        <member name="M:TestTask.Repository.Results.ResultsRepository.GetResultModelByFileName(System.String)">
+            <summary>
+            Метод, который возвращает ResultModel из бд по имени файла
+            </summary>
+            <param name="fileName">Имя файла</param>
+            <returns>Модель ResultModel или null</returns>
+        </member>
+        <member name="M:TestTask.Repository.Results.ResultsRepository.GetResultModelWithAverageValueOnRange(System.Double,System.Double)">
+            <summary>
+            Метод, который возвращает список ResultModel из базы данных, у которых среднее значение эксперемента находится в промежутке
+            </summary>
+            <param name="firstBorder">Начало промежутка</param>
+            <param name="lastBorder">Конец промежутка</param>
+            <returns>Список моделей ResultModel</returns>
+        </member>
+        <member name="M:TestTask.Repository.Results.ResultsRepository.GetResultModelWithAverageTimeOnRange(System.Double,System.Double)">
+            <summary>
+            Метод, который возвращает список ResultModel из базы данных, у которых среднее значение времени эксперемента находится в промежутке
+            </summary>
+            <param name="firstBorder">Начало промежутка</param>
+            <param name="lastBorder">Конец промежутка</param>
+            <returns>Список моделей ResultModel</returns>
+        </member>
+        <member name="M:TestTask.Repository.Results.ResultsRepository.Save">
+            <summary>
+            Метод, который сохраняет изменения в базе данных
+            </summary>
+            <returns>Истина если измененмя сохранены в ином же случае ложь</returns>
+        </member>
+        <member name="T:TestTask.Repository.Values.IValuesRepository">
+            <summary>
+            Интерфейс для класс-репозитория ValuesRepository
+            </summary>
+        </member>
+        <member name="T:TestTask.Repository.Values.ValuesRepository">
+            <summary>
+            Класс, отвечающий за работу с таблицой из базы данных Values
+            </summary>
+        </member>
+        <member name="M:TestTask.Repository.Values.ValuesRepository.Add``1(``0)">
+            <summary>
+            Метод, который добавляет запись в базу данных
+            </summary>
+            <typeparam name="T">Базовый интерфейс для записей в базе данных</typeparam>
+            <param name="obj">Модель IValuesModel</param>
+            <returns>Истина, если запись была добавлена, в мном же случае ложь</returns>
+        </member>
+        <member name="M:TestTask.Repository.Values.ValuesRepository.Update``1(``0)">
+            <summary>
+            Метод, который обновляет запись в базе данных
+            </summary>
+            <typeparam name="T">Базовый интерфейс для записей в базе данных</typeparam>
+            <param name="obj">Модель IValuesModel</param>
+            <returns>Истина, если запись была обновлена, в мном же случае ложь</returns>
+        </member>
+        <member name="M:TestTask.Repository.Values.ValuesRepository.AddOrUpdateRangeValueModels(System.Collections.Generic.List{TestTask.Models.Values.ValueModel})">
+            <summary>
+            Метод, который удляет старые данные в базе данных и добавляет новые
+            </summary>
+            <param name="valueModels"> Список ValueModel</param>
+            <returns>Истина, если операция была выполнена успешно, в мном же случае ложь</returns>
+        </member>
+        <member name="M:TestTask.Repository.Values.ValuesRepository.Delete``1(``0)">
+            <summary>
+            Метод, который удаляет запись в базе данных
+            </summary>
+            <typeparam name="T">Базовый интерфейс для записей в базе данных</typeparam>
+            <param name="obj">Модель IValuesModel</param>
+            <returns>Истина, если запись была удалена, в мном же случае ложь</returns>
+        </member>
+        <member name="M:TestTask.Repository.Values.ValuesRepository.GetValueModelsByFileName(System.String)">
+            <summary>
+            Метод, который возвращает список ValueModel из бд по имени файла
+            </summary>
+            <param name="fileName">Имя файла</param>
+            <returns>Модель ValueModel или null</returns>
+        </member>
+        <member name="M:TestTask.Repository.Values.ValuesRepository.Save">
+            <summary>
+            Метод, который сохраняет изменения в базе данных
+            </summary>
+            <returns>Истина если измененмя сохранены в ином же случае ложь</returns>
+        </member>
+        <member name="T:TestTask.Tools.ExpirementDataCalculator.ExpirementDataCalculator">
+            <summary>
+            Класс, который вычисляет данные эксперимента
+            </summary>
+        </member>
+        <member name="M:TestTask.Tools.ExpirementDataCalculator.ExpirementDataCalculator.CalculateAndGetResultModel(System.Collections.Generic.List{TestTask.Models.Values.ValueModel})">
+            <summary>
+            Метод, который высчитывает данные эксперемента 
+            </summary>
+            <param name="valueModels">Данные прошедшие валидацию</param>
+            <returns>Модель данных эксперемента</returns>
+        </member>
+        <member name="T:TestTask.Tools.FileController.FileController">
+            <summary>
+            Класс, отвечающий за работу с файлами
+            </summary>
+        </member>
+        <member name="M:TestTask.Tools.FileController.FileController.GetFileModelAsync(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            Метод, который считывает переданный файл на сервер
+            </summary>
+            <param name="file">Полученный файл с запроса</param>
+            <returns>Модель файла, созданного на сервере</returns>
+        </member>
+        <member name="M:TestTask.Tools.FileController.FileController.GetValueModelsFromFileModel(TestTask.Models.Files.FileModel)">
+            <summary>
+            Метод, который парсит данные из модели файла
+            </summary>
+            <param name="fileModel">Модель файла</param>
+            <returns></returns>
+        </member>
+        <member name="M:TestTask.Tools.FileController.FileController.UploadFileAsync(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            Метод, который сохраняет файл на сервер
+            </summary>
+            <param name="file">Файл с формы</param>
+            <returns>Путь к файла</returns>
+        </member>
+        <member name="M:TestTask.Tools.FileController.FileController.ReadAllLinesFromFileAsync(System.String)">
+            <summary>
+            Метод, который считывает файл
+            </summary>
+            <param name="filePath">Путь к файлу</param>
+            <returns>Список считанных строк</returns>
+        </member>
+        <member name="M:TestTask.Tools.FileController.FileController.GetFileOwnerAndRemoveFile(System.String)">
+            <summary>
+            Метод, который возвращает владельца файла и удаляет файл
+            </summary>
+            <param name="filePath">Путь к файлу</param>
+            <returns>Имя валдельца файла</returns>
+        </member>
+        <member name="T:TestTask.Tools.Parser.StringParser">
+            <summary>
+            Класс-парсер, который приводит один тип к другому
+            </summary>
+        </member>
+        <member name="M:TestTask.Tools.Parser.StringParser.ParseDateTimeFromString(System.String,System.DateTime@,System.String)">
+            <summary>
+            Метод, который приводит строку к DateTime
+            </summary>
+            <param name="str">Строка для конвертации</param>
+            <param name="result">Конечный результат</param>
+            <param name="pattern">Шаблон для привидения строки к DateTime</param>
+            <returns>Истина, если преобразование успешно, в ином же случае ложь</returns>
+        </member>
+        <member name="M:TestTask.Tools.Parser.StringParser.ParseDateTimeToString(System.DateTime,System.String)">
+            <summary>
+            Метод, который приводит DateTime к строке
+            </summary>
+            <param name="dateTime">DateTime для конвертации</param>
+            <param name="pattern">Шаблон для приведения к строке</param>
+            <returns>Строка</returns>
+        </member>
+        <member name="M:TestTask.Tools.Parser.StringParser.ParseIntFromString(System.String,System.Int32@)">
+            <summary>
+            Метод, который приводит строку к целому числу
+            </summary>
+            <param name="str">Строка для конвертации</param>
+            <param name="result">Целое число</param>
+            <returns>Истина, если преобразование успешно, в ином же случае ложь</returns>
+        </member>
+        <member name="M:TestTask.Tools.Parser.StringParser.ParseDoubleFromString(System.String,System.Double@,System.Globalization.NumberFormatInfo)">
+            <summary>
+            Метод, который приводит строку к вещественному числу
+            </summary>
+            <param name="str">Строка для конвертации</param>
+            <param name="result">вещественное число</param>
+            <param name="numberFormatInfo">Параметры перевода строки</param>
+            <returns>Истина, если преобразование успешно, в ином же случае ложь</returns>
+        </member>
+        <member name="M:TestTask.Tools.Parser.StringParser.ParseExpirementDataModelFromString(System.String)">
+            <summary>
+            Метод, который приводит строку к модели данных эспиремента
+            </summary>
+            <param name="str">Строка для конвертации</param>
+            <returns>Модель данных эспиремента, или же null</returns>
+        </member>
+        <member name="T:TestTask.Tools.Range.AverageExpirementTimeRange">
+            <summary>
+            Класс-обёртка для промежутка среднего времени проведения эксперемента
+            </summary>
+        </member>
+        <member name="P:TestTask.Tools.Range.AverageExpirementTimeRange.AverageExpirementTimeFirst">
+            <summary>
+            Начальное среднее значение времени эсперимента
+            </summary>
+        </member>
+        <member name="P:TestTask.Tools.Range.AverageExpirementTimeRange.AverageExpirementTimeLast">
+            <summary>
+            Конечное среднее значение времени эсперимента
+            </summary>
+        </member>
+        <member name="M:TestTask.Tools.Range.AverageExpirementTimeRange.IsNull">
+            <summary>
+            Метод, который проверяет был ли передан промежуток среднего времени проведения эксперемента
+            </summary>
+            <returns>Истина, если никаких значений не передавали, в ином же случае ложь</returns>
+        </member>
+        <member name="T:TestTask.Tools.Range.AverageExpirementValueRange">
+            <summary>
+            Класс-обёртка для промежутка среднего значения эксперемента
+            </summary>
+        </member>
+        <member name="P:TestTask.Tools.Range.AverageExpirementValueRange.AverageExpirementValueFirst">
+            <summary>
+            Начальное среднее значение эсперимента
+            </summary>
+        </member>
+        <member name="P:TestTask.Tools.Range.AverageExpirementValueRange.AverageExpirementValueLast">
+            <summary>
+            Конечное среднее значение эсперимента
+            </summary>
+        </member>
+        <member name="M:TestTask.Tools.Range.AverageExpirementValueRange.IsNull">
+            <summary>
+            Метод, который проверяет был ли передан промежуток среднего значения эксперемента
+            </summary>
+            <returns>Истина, если никаких значений не передавали, в ином же случае ложь</returns>
+        </member>
+        <member name="T:TestTask.Tools.TimeExtension.DateTimeExtensions">
+            <summary>
+            Класс, в котором хранятся методы расширения для класса DateTime
+            </summary>
+        </member>
+        <member name="M:TestTask.Tools.TimeExtension.DateTimeExtensions.IsInRange(System.DateTime,System.DateTime,System.DateTime)">
+            <summary>
+            Метод, проверющий входит ли дата в заданный промежуток
+            </summary>
+            <param name="dateToCheck">Дата для проверки</param>
+            <param name="startDate">Стартовая дата откуда начинается промежуток</param>
+            <param name="endDate">Конечная дата где заканчивает промежуток</param>
+            <returns>Истина, если дата входит в промежуток, в ином же случае ложь</returns>
+        </member>
+        <member name="T:TestTask.Tools.Validator.ScienceFileValidator">
+            <summary>
+            Класс-валидатор, для научных эксперемнтов
+            </summary>
+        </member>
+        <member name="M:TestTask.Tools.Validator.ScienceFileValidator.Validate(System.Collections.Generic.List{System.String})">
+            <summary>
+            Метод, который проводит валидацию переданных строк
+            </summary>
+            <param name="strings">Список строк для валидации</param>
+            <returns>Список строк, прошедних валидацию</returns>
+        </member>
+        <member name="M:TestTask.Tools.Validator.ScienceFileValidator.Validate(System.String)">
+            <summary>
+            Метод, который проводит валидацию науного эспиремента
+            </summary>
+            <param name="str">Строка для валидцаии</param>
+            <returns>Истина, если строка подходит требованиям валидации, в ином же случае ложь</returns>
+        </member>
+        <member name="T:InfotecsTestTask.Tools.ExpirementDataCalculator.Extension.ExpirementDataModelExtension">
+            <summary>
+            Extension класс для класса ExpirementDataModel
+            </summary>
+        </member>
+        <member name="M:InfotecsTestTask.Tools.ExpirementDataCalculator.Extension.ExpirementDataModelExtension.Compare(InfotecsTestTask.Tools.ExpirementDataCalculator.Model.ExpirementDataModel,InfotecsTestTask.Tools.ExpirementDataCalculator.Model.ExpirementDataModel)">
+            <summary>
+            Метод сравнения двух объектов ExpirementDataModel
+            </summary>
+            <param name="expirementDataModel">Первая модель для сравнения</param>
+            <param name="otherModel">Вторая модель для сравнения</param>
+            <returns>возвращает истину если объекты равны в ином же случае ложь</returns>
+        </member>
+        <member name="T:InfotecsTestTask.Tools.ExpirementDataCalculator.Model.ExpirementDataModel">
+            <summary>
+            Класс модель для данных эксперимента
+            </summary>
+        </member>
+        <member name="T:InfotecsTestTask.Tools.ValueModelExtension.ValueModelExtension">
+            <summary>
+            Класс, в котором хранятся методы расширения для класса ValueModel
+            </summary>
+        </member>
+        <member name="M:InfotecsTestTask.Tools.ValueModelExtension.ValueModelExtension.Compare(TestTask.Models.Values.ValueModel,TestTask.Models.Values.ValueModel)">
+            <summary>
+            Метод, который сравнивает значения моделей
+            </summary>
+            <param name="valueModel">Первая модель</param>
+            <param name="otherValueModel">Вторая модель</param>
+            <returns>Истину, если поля моделей равны, в ином случае ложь</returns>
+        </member>
+    </members>
+</doc>

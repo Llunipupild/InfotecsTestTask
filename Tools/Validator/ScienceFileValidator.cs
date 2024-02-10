@@ -3,10 +3,18 @@ using TestTask.Tools.TimeExtension;
 
 namespace TestTask.Tools.Validator
 {
+    /// <summary>
+    /// Класс-валидатор, для научных эксперемнтов
+    /// </summary>
     public class ScienceFileValidator
     {
         private static DateTime _startDateTime = new(2000, 1, 1, 0, 0, 0);
 
+        /// <summary>
+        /// Метод, который проводит валидацию переданных строк
+        /// </summary>
+        /// <param name="strings">Список строк для валидации</param>
+        /// <returns>Список строк, прошедних валидацию</returns>
         public static List<string> Validate(List<string> strings)
         {
             List<string> result = new();
@@ -25,6 +33,11 @@ namespace TestTask.Tools.Validator
             return result;
         }
 
+        /// <summary>
+        /// Метод, который проводит валидацию науного эспиремента
+        /// </summary>
+        /// <param name="str">Строка для валидцаии</param>
+        /// <returns>Истина, если строка подходит требованиям валидации, в ином же случае ложь</returns>
         public static bool Validate(string str)
         {
             string[] splittedStrings = str.Split(";");

@@ -1,5 +1,8 @@
 ﻿namespace InfotecsTestTask.Tools.ExpirementDataCalculator.Model
 {
+    /// <summary>
+    /// Класс модель для данных эксперимента
+    /// </summary>
     public class ExpirementDataModel
     {
         public string MinDateString { get; set; } = null!;

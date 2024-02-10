@@ -6,10 +6,18 @@ using TestTask.Tools.Parser;
 
 namespace TestTask.Tools.FileController
 {
+    /// <summary>
+    /// Класс, отвечающий за работу с файлами
+    /// </summary>
     public class FileController
     {
         private const string UPLOAD_FILES_DIRECTORY = "uploadfiles";
 
+        /// <summary>
+        /// Метод, который считывает переданный файл на сервер
+        /// </summary>
+        /// <param name="file">Полученный файл с запроса</param>
+        /// <returns>Модель файла, созданного на сервере</returns>
         public async static Task<FileModel> GetFileModelAsync(IFormFile file)
         {
             string filePath = await UploadFileAsync(file);
@@ -25,6 +33,11 @@ namespace TestTask.Tools.FileController
             };
         }
 
+        /// <summary>
+        /// Метод, который парсит данные из модели файла
+        /// </summary>
+        /// <param name="fileModel">Модель файла</param>
+        /// <returns></returns>
         public static List<ValueModel> GetValueModelsFromFileModel(FileModel fileModel)
         {
             List<ValueModel> result = new();
@@ -52,6 +65,11 @@ namespace TestTask.Tools.FileController
             return result;
         }
 
+        /// <summary>
+        /// Метод, который сохраняет файл на сервер
+        /// </summary>
+        /// <param name="file">Файл с формы</param>
+        /// <returns>Путь к файла</returns>
         public async static Task<string> UploadFileAsync(IFormFile file)
         {
             string fileDirectory = Directory.GetCurrentDirectory() + "\\" + UPLOAD_FILES_DIRECTORY;
@@ -67,6 +85,11 @@ namespace TestTask.Tools.FileController
             return filePath;
         }
 
+        /// <summary>
+        /// Метод, который считывает файл
+        /// </summary>
+        /// <param name="filePath">Путь к файлу</param>
+        /// <returns>Список считанных строк</returns>
         public async static Task<List<string>> ReadAllLinesFromFileAsync(string filePath)
         {
             List<string> result = new();
@@ -78,6 +101,11 @@ namespace TestTask.Tools.FileController
             return result;
         }
 
+        /// <summary>
+        /// Метод, который возвращает владельца файла и удаляет файл
+        /// </summary>
+        /// <param name="filePath">Путь к файлу</param>
+        /// <returns>Имя валдельца файла</returns>
         public static string GetFileOwnerAndRemoveFile(string filePath)
         {
             if (!OperatingSystem.IsWindows()) {

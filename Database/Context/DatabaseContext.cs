@@ -5,6 +5,9 @@ using TestTask.Models.Values;
 
 namespace TestTask.Database.Context
 {
+    /// <summary>
+    /// Класс-контекст базы данных
+    /// </summary>
     public class DatabaseContext : DbContext
     {
         public DbSet<FileModel> Files { get; set; }

@@ -1,5 +1,8 @@
 ﻿namespace TestTask.Models.Files
 {
+    /// <summary>
+    /// Класс-модель, содержащий данные о записи из таблицы Files
+    /// </summary>
     public class FileModel : IFileModel
     {
         public int Id { get; set; }
